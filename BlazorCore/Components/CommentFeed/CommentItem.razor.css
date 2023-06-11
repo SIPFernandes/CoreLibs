@@ -1,0 +1,95 @@
+.flex-center {
+	display: flex;
+	align-items: center
+}
+
+.active {
+	background-color: yellow;
+}
+
+.reply {
+	margin-left: 10%;
+}
+
+.comment-header {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 8px
+}
+
+.comment-author {
+	background-color: #CCECFF;
+	border-radius: 4px;
+	color: #005E99;
+	font-size: 12px;
+	font-weight: 400;
+	padding: 1px 3px;
+}
+
+.comment-date {
+	font-size: 12px;
+	font-weight: 400;
+	color: #767676;
+}
+
+.header-icons {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+}
+
+.comment-container {
+	margin-bottom: 23px;
+}
+
+.comment-text {
+	padding: 8px;
+	overflow-wrap: anywhere;
+	background: #F7F7F7;
+	border-radius: 4px;
+}
+.comment-opt {
+	display: flex;
+	align-items: center;
+	margin-top: 8px;	
+}
+
+.comment-opt>.btn {
+	box-shadow: none;	
+}
+
+.ml-7 {
+	margin-left: 7px;
+}
+
+.text-lowercase {
+	text-transform: lowercase;
+}
+
+.btn-more {
+	font-weight: 400;
+	font-size: 14px;
+	background-color: transparent;
+	justify-content: normal;
+	border: none;
+	padding: unset;
+	width: 100px;
+}
+
+	.btn-more:hover {
+		text-decoration: underline;
+	}
+
+.more-replies {
+	padding-bottom: 16px;
+	margin-bottom: 12px;
+	display: flex;
+	align-items: center;
+	gap: 16px;
+}
+
+.line {
+	background-color: #E4E4E4;
+	width: 100%;
+	height: 1px;
+}

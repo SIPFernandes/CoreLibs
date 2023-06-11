@@ -1,0 +1,6 @@
+.actions{
+	display: flex;
+	padding: 8px;
+	justify-content: end;
+	gap: 10px;
+}

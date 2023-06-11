@@ -1,0 +1,18 @@
+﻿@using BlazorCore.Areas.Helpers;
+@using BlazorCore.Data.Consts;
+
+<div class="file-upload">
+    <div class="file-upload-header">
+        <div class="file-type @FilesHelper.GetFileExtensionColor(File.FileType)">
+            @File.FileType
+        </div>
+
+        <div class="text color-n500 mr-auto text-ellipsis">
+            @File.FileName
+        </div>
+
+        <button class="options-icon btn" @onclick="DownloadFile">
+            <svg data-src="@IconsConst.Generic.Download" class="@CssConst.IconColor.N600" />
+        </button>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+﻿@using BlazorCore.Data.Consts;
+
+<div class="dropdown-option-item" @onclick="CopyToClipboard" @onclick:stopPropagation="true">
+    <span>
+        <svg data-src="@IconsConst.Generic.Share"/>
+    </span>
+    <span class="text">
+        @CopyLink
+    </span>
+</div>

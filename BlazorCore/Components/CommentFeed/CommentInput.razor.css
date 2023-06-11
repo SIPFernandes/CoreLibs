@@ -1,0 +1,84 @@
+.comment-input-holder.active .comment-input-container {
+    border-color: #767676
+}
+
+.comment-input-container {
+    display: flex;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    width: 100%;
+    padding: 7.5px 5.5px;
+    min-height: 87px;
+    max-height: 180px;
+    transition: .2s ease
+}
+
+    .comment-input-container .comment-input-text {
+        margin-top: 4px;
+        margin-left: 7.5px;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        overflow: auto;
+    }
+
+    .comment-input-container .comment-input-parent {
+        width: 100%;
+        overflow: auto;
+        overflow-wrap: anywhere;
+    }
+
+    .comment-input-container .comment-input {
+        border: none;
+        outline: none;
+        padding-left: 0.5px;
+    }
+
+        .comment-input-container .comment-input:empty:not(:focus)::before {
+            content: attr(placeholder);
+            color: #bbb
+        }
+
+.comment-input-controls {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    margin-top: 8px;
+    gap: 3.5px;
+}
+
+.comment-edit-buttons {
+    display: flex;
+    gap: 4px;
+    justify-content: flex-end;
+    margin-top: 8px;
+}
+
+.button-icon {
+    padding: 5px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+    .button-icon:hover {
+        background-color: #F7F7F7;
+    }
+
+    .button-icon:active {
+        background-color: #E4E4E4;
+    }
+
+::deep .loading .loading-button {
+    width: 18px;
+    height: 18px;
+
+}
+
+::deep .loading .loading-button::after {
+    width: 14px;
+    height: 14px;
+}

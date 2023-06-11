@@ -1,0 +1,29 @@
+﻿<div class="d-flex align-items-center general-date-component">
+    @if(GeneralDateOpt!.DisplayOptions is DisplayOptionsEnum.BothDates or DisplayOptionsEnum.OnlyStartDate)
+    {
+        <div class="date-holder">
+            @StartDateLabel
+
+            <BaseDateComponent @ref="StartBaseDateComponentRef"
+                GeneralDateOpt="GeneralDateOpt"
+                StartEndDateModel="StartEndDateModel" IsStartDate="true"
+                DateChanged="DateChangedCallBack"/>
+        </div>
+    }
+    
+    @if(GeneralDateOpt.DisplayOptions == DisplayOptionsEnum.BothDates)
+    {
+        @DateSeparator
+    }
+
+    @if(GeneralDateOpt.DisplayOptions is DisplayOptionsEnum.BothDates or DisplayOptionsEnum.OnlyEndDate)
+    {
+        <div class="date-holder">
+            @EndDateLabel
+            <BaseDateComponent @ref="EndBaseDateComponentRef"
+                GeneralDateOpt="GeneralDateOpt"
+                StartEndDateModel="StartEndDateModel" IsStartDate="false"
+                DateChanged="DateChangedCallBack"/>
+        </div>
+    }
+</div>

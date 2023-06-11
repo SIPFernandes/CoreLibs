@@ -1,0 +1,41 @@
+.carousel-item {
+	display: block;
+	opacity: 0;
+	height: 0;
+	transition: opacity .2s ease;
+	pointer-events: none;
+}
+
+.carousel-item.active {
+	opacity: 1;
+	height: auto;
+	pointer-events: auto;
+}
+
+.carousel-dots-container {
+	margin-top: 24px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+}
+
+.carousel-dot{
+	background-color: #BCBCBC;
+	cursor: pointer;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+}
+
+.carousel-dot:hover {
+	 background-color: #767676;
+ }
+
+.carousel-dot:active {
+	 background-color: #003A5E;
+ }
+
+.carousel-dot.active {
+	 background-color: #298DCC;
+ }

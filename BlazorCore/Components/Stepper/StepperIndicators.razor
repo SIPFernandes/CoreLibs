@@ -1,0 +1,29 @@
+﻿@using BlazorCore.Data.Consts
+<div class="steppers-holder @(VerticalSteps ? "vertical" : string.Empty)">
+    @for (var i = 0; i < Steps.Length; i++)
+    {
+        var index = i;
+        
+        var step = Steps[index];
+
+        <div class="stepper @(step.IsCompleted ? "completed" : string.Empty) @(CurrentStep == index ? "active" : string.Empty)">
+
+            @if (index > 0)
+            {
+                <div class="line"></div>
+            }
+
+            <button class="circle" @onclick="@(() => GoToStep(index))" disabled="@(!CanGoToStepArray[index])">
+                @if (step.IsCompleted)
+                {
+                    <svg data-src="@IconsConst.Generic.Checkmark"/>
+                }
+                else
+                {
+                    <span>@(index + 1)</span>
+                }
+            </button>
+            <div class="text">@step.StepName</div>
+        </div>
+    }
+</div>

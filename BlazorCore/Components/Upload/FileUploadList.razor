@@ -1,0 +1,44 @@
+﻿@using BlazorCore.Areas.Helpers;
+@using BlazorCore.Data.Consts;
+@using BlazorCore.Data.Consts.ENConsts;
+
+@if (Files.Count > 0)
+{
+    <div class="upload-container">
+        @foreach (var upload in Files)
+        {
+            var fileType = DotNetCore.Helpers.FilesHelper.GetFileExtension(upload.File.Name);
+
+            <div class="file-upload">
+                <div class="file-upload-header">
+                    <div class="file-type @FilesHelper.GetFileExtensionColor(fileType)">
+                        @fileType
+                    </div>
+
+                    <div class="text color-n500 mr-auto text-ellipsis">
+                        @upload.File.Name
+                    </div>
+
+                    <button class="options-icon btn" @onclick="async () => await OnUploadDelete.InvokeAsync(upload)">
+                        <svg data-src="@IconsConst.Generic.Close" class="@CssConst.IconColor.N600" />
+                    </button>
+                </div>
+
+                @if (upload.UploadCompletion < 100)
+                {
+                    <FileUploadItem Upload="upload" RefreshFile="RefreshFile" />
+                }
+            </div>
+        }
+        @if (CompletedUploads == Files.Count)
+        {
+            <div class="completed">
+                <div class="check-background">
+                    <svg class="check-icon" data-src="@IconsConst.Generic.Checkmark" fill="@ColorsConsts.N100" />
+                </div>
+
+                @FilesConst.FileUploaded
+            </div>
+        }
+    </div>
+}

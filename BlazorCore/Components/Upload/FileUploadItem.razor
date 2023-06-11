@@ -1,0 +1,79 @@
+﻿@using BlazorCore.Components.Loading
+@using BlazorCore.Data.Consts
+@using BlazorCore.Components.Popup
+@using BlazorCore.Data.Consts.ENConsts
+@using DotNetCore.Models;
+@using BlazorCore.Areas.Helpers
+
+<div class="upload-item">
+
+    @if (WithControls)
+    {
+        <div class="upload-item-info">
+            <span class="flex-grow-1 file-name">
+                @Upload.File.Name
+            </span>
+
+            @if (UploadDeleted.HasDelegate)
+            {
+                <span class="d-flex justify-content-center">
+                    <ConfirmationPopup IsVisible="IsDeleting"
+                               Style="margin-top: -125px;"
+                               OnConfirmation="async () => await DeleteUpload()"
+                               OnCancel="() => IsDeleting = false">
+                        <Content>
+                            <p>@FilesConst.DeleteConfirm</p>
+                        </Content>
+                    </ConfirmationPopup>
+
+                    <span class="file-icon" @onclick="async () => await Delete()">
+                        <svg class="delete" data-src="@IconsConst.Generic.Trash" />
+                    </span>
+                </span>
+            }
+        </div>
+    }
+
+    <div class="file-upload-progress">
+        <LoadingBar StrokeWidth="4"
+                    CompletedPercentage="Upload.UploadCompletion"
+                    IsCompleted="(Upload.UploadCompletion == 100)"
+                    BaseColor="@(Upload.Error != null ? ColorsConsts.UploadErrorBaseColor : ColorsConsts.UploadBaseColor)"
+                    CompletedColor="@(Upload.Error != null ? ColorsConsts.UploadErrorColor : ColorsConsts.UploadCompletedColor)" />
+    </div>
+
+    <div class="file-status">
+        @if (Upload.Error != null)
+        {
+            <span class="error-status">
+                <svg data-src="@IconsConst.Generic.WarningCircle" fill="@ColorsConsts.UploadErrorColor" />
+
+                @GetFileError()
+            </span>
+
+            @if (Upload.Error == FileUpload.ErrorType.GenericError && RefreshFile.HasDelegate)
+            {
+                <span class="file-icon" @onclick="async () => await RefreshFile.InvokeAsync(Upload)">
+                    <svg data-src="@IconsConst.Refresh" fill="@ColorsConsts.N700" />
+                    @GenericsConst.TryAgain
+                </span>
+            }
+        }
+        else
+        {
+            if (Upload.UploadCompletion < 100)
+            {
+                <span>@FilesConst.FileUploading</span>
+            }
+            else
+            {
+                <div class="completed">
+                    <div class="check-background">
+                        <svg class="check-icon" data-src="@IconsConst.Generic.Checkmark" fill="@ColorsConsts.N100" />
+                    </div>
+                    @(TextProgress)
+                </div>
+            }
+        }
+    </div>
+</div>

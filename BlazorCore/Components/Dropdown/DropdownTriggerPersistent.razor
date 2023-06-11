@@ -1,0 +1,6 @@
+<div class="dropdown" @ref=DropdownRef>
+    <div @onclick="() => ToggleDropdown(!Show)">@Trigger</div>
+    <div class="dropdown-content @(Show ? string.Empty : "hide")">
+        @Content
+    </div>
+</div>

@@ -1,0 +1,189 @@
+﻿@using BlazorCore.Components.Dropdown
+@using BlazorCore.Components.Modal
+@using BlazorCore.Components.Reactions
+@using BlazorCore.Data.Consts
+@using BlazorCore.Components.Avatar
+@using BlazorCore.Data.Consts.ENConsts;
+@using DotNetCore.Entities.MessageAggregate.CommentAggregate
+@using DotNetCore.Helpers;
+
+@typeparam T where T : Comment
+
+@if (CommentObj.RecentReplies != null)
+{
+    <div class="comment">
+        @foreach (var recentReply in CommentObj.RecentReplies.Values)
+        {
+            <CommentItem T=T CommentObj="(T) recentReply" @key="recentReply.Id" FeedData="FeedData"
+                OnReply="Reply" OnDelete="() => CommentObj.RecentReplies.Remove(recentReply.Id)" />
+        }
+    </div>
+}
+
+@if (ShowingReplies && Replies != null)
+{
+    <div class="comment">
+        @foreach (var reply in Replies)
+        {
+            if (CommentObj.RecentReplies == null || !CommentObj.RecentReplies.Remove(reply.Id))
+            {
+                <CommentItem T=T CommentObj="reply" OnReply="Reply" @key="reply.Id"
+                 OnDelete="OnReplyDelete" FeedData="FeedData" />
+            }
+        }
+
+        @if (Replies.Count < CommentObj.RepliesCount)
+        {
+            <div class="more-replies">
+                <button class="btn-more" @onclick="GetMoreReplies">
+                    @GenericsConst.ShowMore
+                </button>
+
+                <div class="line"></div>
+            </div>
+        }
+    </div>
+}
+
+<div id="@("comment" + CommentObj.Id)" class="comment @(FeedData.FeedOpts.NestedReplies && CommentObj.ReplyToId != null ? "reply" : string.Empty)
+    @(IsActive ? CssConst.Active : string.Empty)">
+    <div class="comment-header">
+        <div class="comment-creator flex-center">
+            <UserAvatar UserId="@CommentObj.CreatorId" />
+
+            <div class="mx-2">
+                <UserLink UserId="@CommentObj.CreatorId" />
+            </div>
+
+            @if (FeedData.FeedCurrentUser.UserId == FeedData.FeedObjCreatorId)
+            {
+                <div data-user-id="@CommentObj.CreatorId" class="comment-author">
+                    @FeedConsts.Author
+                </div>
+            }
+
+            <div class="comment-creator-text">
+                @FeedConsts.Commented
+            </div>
+        </div>
+
+        <div class="header-icons">
+            @if (CommentObj.CreatedAt != CommentObj.ModifiedAt)
+            {
+                <div class="comment-date">
+                    @DateHelper.DateAgo(CommentObj.ModifiedAt) @FeedConsts.CommentEdited
+                </div>
+            }
+            else
+            {
+                <div class="comment-date">
+                    @DateHelper.DateAgo(@CommentObj.CreatedAt)
+                </div>
+            }
+
+
+            @if (!FeedData.FeedOpts.DisableComments && !CommentObj.IsDeleted)
+            {
+                <DropdownTrigger DropdownWidth="200"
+                             CloseOnSelect="true">
+                    <Trigger>
+                        <div class="options-icon">
+                            <svg data-src=@IconsConst.Generic.Dots class=@CssConst.IconColor.Main />
+                        </div>
+                    </Trigger>
+                    <Content>
+                        @if (!FeedData.FeedOpts.NestedReplies)
+                        {
+                            <DropdownButton Text="@FeedConsts.Reply" Icon="@IconsConst.Reply"
+                                    OnClick="async () => await Reply(new (CommentObj, null))" />
+                        }
+
+                        @if (CommentObj.CreatorId == FeedData.FeedCurrentUser.UserId)
+                        {
+                            <DropdownButton Text="@GenericsConst.Edit" Icon="@IconsConst.Edit" OnClick="OnEditTrigger" />
+                        }
+
+                        <DropdownButton Text="@GenericsConst.Share" Icon="@IconsConst.Generic.Share" OnClick="Share" />
+
+                        @if (CommentObj.CreatorId == FeedData.FeedCurrentUser.UserId || FeedData.FeedCurrentUser.IsAdmin)
+                        {
+                            <DropdownButton Text="@GenericsConst.Delete" Icon="@IconsConst.Generic.Trash"
+                                    OnClick="() => ConfirmModal(ConfirmTypes.DeleteComment)" />
+                        }
+                    </Content>
+                </DropdownTrigger>
+            }
+        </div>
+    </div>
+
+    <div class="comment-container">
+        @if (FeedData.FeedOpts.CommentsSoftDelete && CommentObj.IsDeleted)
+        {
+            <div class="comment-text">
+                @FeedConsts.CommentDeleted
+            </div>
+        }
+        else
+        {
+            <div class="comment-text @(Editing ? "comment-edit" : string.Empty)">
+                @if (CommentObj.CommentReplied != null && !FeedData.FeedOpts.NestedReplies)
+                {
+                    <CommentReply Reply="CommentObj.CommentReplied" />
+                }
+
+                @if (Editing)
+                {
+                    <CommentInput IsEdit="Editing" IsConnected="true" Message="@Message" FeedData="FeedData"
+                           OnSend="UpdateComment" OnCancel="() => ConfirmModal(ConfirmTypes.DiscardDraft)" />
+                }
+                else
+                {
+                    <CommentText Text="@CommentObj.Text" CommentId="CommentObj.Id"></CommentText>
+                }
+            </div>
+
+            <div class="comment-opt">
+                @if (!FeedData.FeedOpts.DisableComments)
+                {
+                    <ReactionsBase ReactedObj="@CommentObj" UserId="@FeedData.FeedCurrentUser.UserId"
+                           Options="@FeedData.FeedOpts" OnReacting="async () => await OnReacting.InvokeAsync(CommentObj)"/>
+
+                    @if (FeedData.FeedOpts.NestedReplies)
+                    {
+                        <button class="btn" @onclick="async () => await Reply(new (CommentObj, null))">
+                            @FeedConsts.Reply
+                        </button>
+                    }
+                }
+
+                @if (FeedData.FeedOpts.NestedReplies && CommentObj.RepliesCount > 0)
+                {
+                    <svg data-src=@IconsConst.Generic.Dot class=@CssConst.IconColor.N500 />
+
+                    <button class="btn text-lowercase" @onclick="ShowReplies">
+                        @(ShowingReplies ? FeedConsts.Hide : FeedConsts.Show) @CommentObj.RepliesCount
+
+                        @(CommentObj.RecentReplies != null && CommentObj.RecentReplies.Count > 0 ?
+                            FeedConsts.Other : string.Empty)
+
+                        @(CommentObj.RepliesCount == 1 ? FeedConsts.Reply : FeedConsts.Replies)
+                    </button>
+                }
+            </div>
+        }
+    </div>
+</div>
+
+<ModalConfirm @ref="ModalRef" ConfirmTitle="@ConfirmBtn" Class="error"
+              OnConfirmation="OnModalConfirm">
+    <Body>
+        <div class="text-left">
+            <div class="title title--l weight--l">
+                @ModalTitle
+            </div>
+            <div class="text">
+                @ModalDescription
+            </div>
+        </div>
+    </Body>
+</ModalConfirm>

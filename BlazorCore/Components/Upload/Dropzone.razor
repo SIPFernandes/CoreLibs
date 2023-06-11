@@ -1,0 +1,21 @@
+﻿@using Microsoft.AspNetCore.Components.Forms
+@using BlazorCore.Data.Consts
+@using BlazorCore.Data.Consts.ENConsts
+
+<div class="dropzone @Class">
+    @if(DropzoneContent != null)
+    {
+        @DropzoneContent
+    }
+    else
+    {
+        <span class="dropzone-text">
+            @FilesConst.DropzoneText
+            <span class="choose-file-trigger">@FilesConst.ChooseFiles</span>
+        </span>
+    }
+
+    <InputFile class="hidden-input-file" OnChange="OnInputFileChange"
+        @ondragenter="HandleDragEnter" @ondragleave="HandleDragLeave"
+        accept="@AcceptedFiles" multiple="@MultipleFiles" />
+</div>

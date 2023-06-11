@@ -1,0 +1,39 @@
+@using BlazorCore.Data.Consts
+@using BlazorCore.Data.Consts.ENConsts
+@using BlazorCore.CustomEventHandlers
+
+<div class="pop-up-holder">
+    @foreach (var popUp in PopUpsList)
+    {
+        <div @key="popUp.GetHashCode()" class="pop-up fade-in"
+             onmouseenter="@popUp.StopCountdown"
+             onmouseleave="@popUp.StartCountdown">
+
+            <div class="pop-up-container">
+                @if (!string.IsNullOrEmpty(popUp.Icon))
+                {
+                    <svg data-src="@popUp.Icon" class="pop-up-container-icon @popUp.IconColor"></svg>
+                }
+
+                <div>@popUp.PopUpMessage</div>
+            </div>
+
+            <div class="horizontal-separator"></div>
+
+            <div class="d-flex justify-content-end">
+                <button class="primary-button"
+                        @onclick="() => OnConfirmationChange(popUp, false)">
+                    @GenericsConst.Ok
+                </button>
+                @if (popUp.OnConfirm.HasValue)
+                {
+                    <button class="btn primary-btn"
+                            @onclick="() => OnConfirmationChange(popUp, true)">
+                        <svg data-src="@IconsConst.Reply"/>
+                        @GenericsConst.Confirm
+                    </button>
+                }
+            </div>
+        </div>
+    }
+</div>

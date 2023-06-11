@@ -1,0 +1,32 @@
+﻿@using BlazorCore.Components.Dropdown
+@using BlazorCore.Components.TabSet
+@using BlazorCore.Data.Consts;
+
+<DropdownTriggerPersistent  OnDropdownClose="@OnDropdownClose">
+    <Trigger>
+        <div class="notification-wrapper">
+            <svg data-src=@Icon class=@CssConst.IconColor.Main />
+            @if (_hasNews)
+            {
+                <span class="has-notification-badge"></span>
+            }
+        </div>
+    </Trigger>
+    <Content>
+        <div class="container-content">
+            @if (_selectedTabItem != null)
+            {
+                <TabSet SelectedTab=@_selectedTabItem TabsList="TabItems"
+                    DisplayValue="false" SelectedTabChanged="SelectedTabChanged" />
+            }            
+
+            <NotificationsList Predicate="_predicate" ItemLoaded="OnItemsLoaded"
+                Template="Template!" LastViewed="LastViewed" NewNotification="_newNotification" />            
+
+            @if (_hasMoreItems)
+            {
+                <button @onclick="ViewAllNotifications">View all</button>
+            }
+        </div>
+    </Content>
+</DropdownTriggerPersistent>

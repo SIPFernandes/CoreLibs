@@ -1,0 +1,45 @@
+﻿@using BlazorCore.Data.Consts
+@using BlazorCore.Data.Consts.ENConsts
+@using DotNetCore.Consts
+@using BlazorCore.Components.DatesShared.SliderDates
+
+@if (Model.OnlyPickOneDate)
+{
+    <div class="d-flex justify-content-around" @onclick:stopPropagation="true">
+        <div class="primary-input-holder">
+            <label class="text">
+                @GenericsConst.Dates.Month
+            </label>
+            
+            <MonthSelector DateSelected="Date" DateSelectedChanged="ChangeDate" />
+        </div>
+        <div class="primary-input-holder">
+            <label class="text">
+                @GenericsConst.Dates.Year
+            </label>
+    
+            <YearSelector MinYearFromDate=Model.MinYearFromDate MaxYearFromDate=Model.MaxYearFromDate
+                DateSelected="Date" DateSelectedChanged="ChangeDate" />
+        </div>
+    </div>
+}
+else
+{
+    <div class="controls-holder" @onclick:stopPropagation="true">
+        <span class="month">@Date.ToString("MMMM yyyy")</span>
+
+        <div class="controls">
+            <button class="link"
+                    @onclick="PrevMonth">
+                <svg class="arrow-up" data-src="@IconsConst.Arrow" fill="@CssConst.IconColor.Main"/>
+            </button>
+            <button class="link"
+                    @onclick="NextMonth">
+                <svg class="arrow-down" data-src="@IconsConst.Arrow" fill="@CssConst.IconColor.Main"/>
+            </button>
+        </div>
+    </div>
+}
+
+<DatePickerMonthDays Date="Date" Model="Model" MinDate="MinDate" MaxDate="MaxDate"
+    ModelChanged="async (model) => await ModelChanged.InvokeAsync(model)"/>

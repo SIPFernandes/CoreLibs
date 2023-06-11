@@ -1,0 +1,7 @@
+.option-holder {
+	cursor: pointer;
+}
+
+.option-holder.active .text {
+	font-weight: bold;
+}

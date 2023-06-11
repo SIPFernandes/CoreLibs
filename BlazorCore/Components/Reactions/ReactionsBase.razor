@@ -1,0 +1,38 @@
+﻿@using BlazorCore.Components.Dropdown
+@using BlazorCore.Data.Consts;
+@using DotNetCore.Entities;
+
+@if (Options.OnlyLikes)
+{
+    <button type="button" class="btn like-btn flex-center @(MyReaction != null ? CssConst.Active : string.Empty)"
+        @onclick="async () => await ReactionClick(CommentsConsts.Reactions.ThumbsUp)" disabled="@Disabled">
+        <svg data-src="@IconsConst.Heart" class="@CssConst.IconColor.Main" />
+
+        @if (ReactedObj.ReactionsDict.ContainsKey(CommentsConsts.Reactions.ThumbsUp)
+            && ReactedObj.ReactionsDict[CommentsConsts.Reactions.ThumbsUp].Count > 0)
+        {
+            <span class="ml-7 reaction-count">
+                @ReactedObj.ReactionsDict[CommentsConsts.Reactions.ThumbsUp].Count
+            </span>
+        }
+        <span class="likes-label">@Options.LikesLabel</span>
+    </button>
+}
+else
+{
+    <div class="reaction-section">
+        @foreach (var reaction in ReactedObj.ReactionsDict)
+        {
+            if (reaction.Value.Count > 0)
+            {
+                <span class="reaction-span">
+                    @((string?) typeof(CommentsConsts.Reactions).GetField(reaction.Key)?.GetValue(null))
+                    @reaction.Value.Count
+                </span>
+            }
+        }
+    </div>
+
+    <ReactionsDropdown SelectedReaction="@MyReaction" 
+        SelectedReactionChanged="ReactionClick" Disabled="Disabled" />
+}          

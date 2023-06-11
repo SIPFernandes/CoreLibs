@@ -1,0 +1,26 @@
+@using BlazorCore.Data.Consts.ENConsts
+@using BlazorCore.Data.Consts
+
+<BaseModal @ref="ModalRef" Header="Header" Size="Size" ModalClass="@(Class + " confirm-modal")">
+    <Body>                  
+        @Body            
+    </Body>
+    <Footer>
+        <div class="d-flex justify-content-center">
+            <button type="button" class="secondary-button mx-2"
+                @onclick:stopPropagation="true"
+                @onclick="() => OnConfirm(false)">
+                @GenericsConst.Cancel
+            </button>  
+            
+            <button type="button" class="primary-button @(Submitting ? CssConst.Loading : string.Empty)"
+                @onclick="() => OnConfirm(true)" disabled="@ConfirmDisabled">
+                <div>
+                    @(string.IsNullOrEmpty(ConfirmTitle) ? GenericsConst.Confirm : ConfirmTitle)
+                </div>
+
+                <div class="@CssConst.LoadingBtnWhite"></div>
+            </button>
+        </div>
+    </Footer>
+</BaseModal>

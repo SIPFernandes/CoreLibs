@@ -1,0 +1,37 @@
+﻿.dropzone {
+    position: relative;
+}
+
+.dropzone {
+    border: 1px dashed #bbb;
+    border-radius: 6px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    color: #707070;
+    position: relative;
+    padding: 30px 0;
+    margin: 16px 0;
+}
+
+.dropzone-drag {
+    background-color: palegreen
+}
+
+.dropzone .choose-file-trigger {
+    text-decoration: underline;
+    cursor: pointer
+}
+
+::deep .hidden-input-file {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    cursor: pointer;
+    opacity: 0;
+    font-size: 0;
+}

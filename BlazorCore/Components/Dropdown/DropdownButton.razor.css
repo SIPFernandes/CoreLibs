@@ -1,0 +1,22 @@
+.btn {
+	display: flex;
+	align-items: center;
+	padding: 12px 20px;
+	color: #484848;
+	transition: .2s ease;
+	width: 100%;
+	text-align: left;
+}
+
+.btn svg {
+	margin-right: 8px;
+	fill: #484848;
+}
+
+.dropdown-content {
+	padding: 0;
+}
+
+.btn:hover {
+	background: #F7F7F7;
+}

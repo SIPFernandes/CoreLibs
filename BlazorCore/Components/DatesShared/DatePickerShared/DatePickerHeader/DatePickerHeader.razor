@@ -1,0 +1,31 @@
+﻿@using DotNetCore.Consts
+@using BlazorCore.Data.Consts.ENConsts
+
+<div class="d-flex justify-content-around" @onclick:stopPropagation="true">
+    <div class="primary-input-holder @(StartDateInvalid ? "invalid" : "")">
+        <label class="text">
+            @GenericsConst.Dates.StartDate
+        </label>
+        <div class="primary-input">
+            <input type="text" class="partial-input"
+               placeholder="@DateConsts.Format.ToLower()"
+               maxlength="@MaxDateLength"
+               value="@StartDate"
+               onkeypress="return onKeyValidateRegex(event, '[0-9,\/]')"
+               @oninput="args => OnInputChange(args, InputDateType.Start)"/>
+        </div>
+    </div>
+    <div class="primary-input-holder @(EndDateInvalid ? "invalid" : "")">
+        <label class="text">
+            @GenericsConst.Dates.EndDate
+        </label>
+        <div class="primary-input">
+            <input type="text" class="partial-input"
+               placeholder="@DateConsts.Format.ToLower()"
+               maxlength="@MaxDateLength"
+               value="@EndDate"
+               onkeypress="return onKeyValidateRegex(event, '[0-9,\/]')"
+               @oninput="args => OnInputChange(args, InputDateType.End)"/>
+        </div>
+    </div>
+</div>

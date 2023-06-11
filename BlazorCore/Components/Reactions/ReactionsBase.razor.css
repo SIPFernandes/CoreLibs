@@ -1,0 +1,32 @@
+.like-btn {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+}
+
+.like-btn svg {
+	stroke: #484848;
+	width: 14px;
+	fill: transparent;
+	height: 12.5px;
+	transition: .2s ease;
+}
+
+.like-btn:hover svg {
+	stroke: #298DCC;
+}
+
+.like-btn.active svg {
+	stroke: #298DCC;
+	fill: #298DCC;
+}
+
+.reaction-section {
+	padding-top: 8px
+}
+
+.reaction-span {
+	padding: 4px 6px;
+	border-radius: 100px;
+	background-color: #EDF1F3
+}

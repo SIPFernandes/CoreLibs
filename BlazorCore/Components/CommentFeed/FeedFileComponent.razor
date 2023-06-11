@@ -1,0 +1,25 @@
+﻿@using BlazorCore.Components.Dropdown
+@using BlazorCore.Components.Upload;
+@using BlazorCore.Data.Consts;
+@using BlazorCore.Data.Consts.ENConsts;
+@inherits UploadBase
+
+<DropdownTrigger DropdownWidth="204" CloseOnSelect="true">
+    @*@ref="FileDropdown" OnDropdownClose="CloseUserReference"*@
+    <Trigger>
+        <div class="button-icon">
+            <svg data-src="@IconsConst.Generic.File" class="@CssConst.IconColor.Main" />
+        </div>
+    </Trigger>
+
+    <Content>
+        <DropdownButton Text="@FilesConst.UploadsConst.AddFile" Icon="@IconsConst.Generic.Download" OnClick="() => Show = true" />
+        @*TODO*@
+        @*<DropdownButton Text="@FilesConst.MentionFile" Icon="@IconsConst.Generic.MentionFile" OnClick="" />*@
+    </Content>
+</DropdownTrigger>
+
+@if (Show)
+{
+    <TriggeredUpload OnUploadFile="OnFilesDropped" />
+}

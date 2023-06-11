@@ -1,0 +1,17 @@
+﻿.btn-more {
+    font-weight: 400;
+    font-size: 14px;
+    background-color: transparent;
+    justify-content: normal;
+    border: none;
+    padding: unset;
+    margin-top: 8px;
+}
+
+    .btn-more:hover {
+        text-decoration: underline;
+    }
+
+.file-upload + .space {
+    display: none;
+}

@@ -1,0 +1,25 @@
+﻿@using BlazorCore.Components.Avatar
+@using BlazorCore.Data.Consts;
+
+<div class="dropdown-option-item" 
+    @onclick="async () => await UserItemChanged.InvokeAsync(UserItem)">
+
+    <span class="user-icon">
+        <UserAvatar UserId="@UserItem.Id" AvatarSize="24" />
+    </span>
+                    
+    <div class="user-info text-ellipsis">
+        <p class="text--xs @(UserItem.IsSelected ? "weight--m" : "")">
+            @UserItem.FirstName @UserItem.LastName
+        </p>
+    </div>
+
+    @if(UserItem.IsSelected)
+    {
+        <span>
+            <div class="icon-border">
+                <svg class="check-icon" data-src="@IconsConst.Generic.Checkmark" />
+            </div>
+        </span>
+    }        
+</div> 

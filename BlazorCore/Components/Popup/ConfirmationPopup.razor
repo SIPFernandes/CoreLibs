@@ -1,0 +1,24 @@
+﻿@using BlazorCore.Data.Consts
+@using BlazorCore.Data.Consts.ENConsts
+
+@if (IsVisible)
+{
+    <div class="pop-up-confirmation text" style="@Style">
+        @Content
+        <div class="d-flex justify-content-center">
+            <button type="button" class="link link--m color-white"
+                @onclick:stopPropagation="true"
+                @onclick="() => OnConfirm(false)">
+                @GenericsConst.Cancel
+            </button>          
+            <button type="button" class="btn primary-button background-red ml-2"
+                @onclick="() => OnConfirm(true)">
+                @GenericsConst.Confirm
+            </button>
+        </div>
+
+        <div class="d-flex justify-content-center">
+            <span class="pop-up-confirmation-arrow-down"></span>
+        </div>
+    </div>
+}

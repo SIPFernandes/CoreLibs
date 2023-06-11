@@ -1,0 +1,23 @@
+﻿@using BlazorCore.Components.Dropdown
+@using BlazorCore.Data.Consts
+
+<SlideDropdown @ref="SlideDropdownRef" ActiveClass="@CssConst.Active">
+    <Trigger>
+        <span class="text bold text-main-color mr-auto">
+            @DateDisplay(_dateSelected)
+        </span>
+    </Trigger>
+    <Options>
+        @if(DatesList != null)
+        {
+            foreach(var date in DatesList)
+            {
+                <div class="option-holder @(IsDateSelected(date) ? CssConst.Active : string.Empty)" @onclick="async () => await SelectDate(date)">
+                    <span class="text">
+                        @DateDisplay(date)
+                    </span>
+                </div>
+            }
+        }
+    </Options>
+</SlideDropdown>

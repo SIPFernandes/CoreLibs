@@ -1,0 +1,114 @@
+@using BlazorCore.Components.Loading
+@using BlazorCore.Components.Popup;
+@using BlazorCore.Components.Modal;
+@using BlazorCore.Data.Consts
+@using BlazorCore.Data.Consts.ENConsts
+@inherits UploadBase
+
+<BaseModal @ref="Modal" Size="BaseModal.ModalSize.md" IsMinimized="@IsMinimized"
+    Style="@(IsMinimized ? "align-items: flex-end; margin-right: 1.75rem; width: 365px; height: 0%;" : string.Empty)">
+    <Header>
+        <div class="upload-padding">
+            <div class="upload-header">
+                @if (!IsMinimized)
+                {
+                    <h4 class="m-0 bold">@FilesConst.UploadTitle</h4>
+
+                    @if (Files.Count == 0)
+                    {
+                        <svg class="cursor-pointer" @onclick="Modal!.Close" data-src="@IconsConst.Generic.Close" fill="black"></svg>
+                    }
+                    else
+                    {
+                        <svg class="cursor-pointer arrow-diagonal-down" @onclick="() => IsMinimized = true" data-src="@IconsConst.Arrow" fill="black"></svg>
+                    }
+                }
+                else
+                {
+                    <h6 class="bold">@UploadDocumentsStatus</h6>
+                    <svg class="cursor-pointer arrow-diagonal-up" @onclick="() => IsMinimized = false" data-src="@IconsConst.Arrow" fill="black"></svg>
+                }
+            </div>
+        </div>
+
+    </Header>
+    <Body>
+    <div class="upload-body">
+            @if (Files.Count > 0)
+        {
+            <div class="files-holder">
+                @if (IsMinimized)
+                {
+                    <LoadingBar StrokeWidth="4"
+                        CompletedPercentage="(CompletedUploads * 100 / Files.Count)"
+                            IsCompleted="(CompletedUploads == Files.Count)"
+                            BaseColor="@(UploadsWithErrors > 0 ? ColorsConsts.UploadErrorBaseColor : ColorsConsts.UploadBaseColor)"
+                        CompletedColor="@(UploadsWithErrors > 0 ? ColorsConsts.UploadErrorColor :
+                                            ColorsConsts.UploadCompletedColor)"/>
+                }
+                else
+                {
+                    @foreach (var upload in Files)
+                    {
+                        <FileUploadItem Upload="upload"
+                            RefreshFile="RefreshFile"
+                            WithControls="!IsMinimized"
+                            UploadDeleted="OnUploadDelete"/>
+                    }
+                }
+            </div>
+        }
+
+        @if (AcceptMultipleFiles || Files.Count == 0)
+        {
+            <div style="display:@(IsMinimized ? "none" : "block")">
+                <Dropzone MultipleFiles="AcceptMultipleFiles" OnFilesDropped="OnFilesDropped" 
+                    AcceptedFiles="@AcceptedFiles" />
+            </div>                
+        }            
+    </div>
+    </Body>
+    <Footer>
+        <div class="upload-actions @(IsMinimized ? "justify-content-between" : "justify-content-end")">
+
+            @if (IsMinimized)
+            {
+                <span class="uploads-count">
+                    @CompletedUploads of @Files.Count @FilesConst.Uploaded
+                </span>
+            }
+
+            <div class="d-flex align-items-middle">
+                <span class="d-flex justify-content-center">
+                    <ConfirmationPopup @ref="ConfirmationPopup"
+                        Style="margin-top: -110px; position: fixed;"
+                        OnConfirmation="CancelUploadsHandle">
+                        <Content>
+                            <p>@FilesConst.UploadCancelConfirmation</p>
+                        </Content>
+                    </ConfirmationPopup>
+
+                    <button type="button" class="btn tertiary-button" data-dismiss="modal"
+                            @onclick:stopPropagation="true" @onclick="OnCancel">
+                        @GenericsConst.Cancel
+                    </button>
+                </span>
+
+                @if (IsMinimized && UploadsWithErrors > 0)
+                {
+                    <button type="button" class="btn primary-btn margin-top-24"
+                            @onclick="() => IsMinimized = false">
+                        @GenericsConst.Review
+                    </button>
+                }
+                else
+                {
+                    <button type="button" disabled="@(CompletedUploads == 0 || CompletedUploads != Files.Count)"
+                        class="btn primary-btn margin-top-24 ml-2" @onclick="async () => await Confirm()">
+                        @GenericsConst.Confirm
+                    </button>
+                }
+            </div>
+        </div>
+    </Footer>
+</BaseModal>

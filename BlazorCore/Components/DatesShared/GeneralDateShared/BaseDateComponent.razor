@@ -1,0 +1,27 @@
+﻿@using BlazorCore.Components.DatesShared.DatePickerShared
+@using BlazorCore.Data.Consts
+@using DotNetCore.Consts
+@using DotNetCore.Helpers
+@using BlazorCore.Components.Dropdown
+
+@if (DateChanged.HasDelegate)
+{
+    <DropdownTrigger DropdownWidth="272" CloseOnSelect="true"
+        @ref="DropdownTriggerRef">
+        <Trigger>
+            <button class="link date-input">
+                @if (Date.HasValue && Date != default(DateTime))
+                {
+                    @DateHelper.DatePipe(Date)
+                }
+            </button>
+        </Trigger>
+        <Content>
+            <DatePicker Model="StartEndDateModel" ModelChanged="async x => await DateChanged.InvokeAsync(x)"/>
+        </Content>
+    </DropdownTrigger>
+}
+else
+{
+    <span class="date-input">@(Date != default(DateTime) ? DateHelper.DatePipe(Date) : DateConsts.Empty)</span>
+}

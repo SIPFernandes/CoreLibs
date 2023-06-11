@@ -1,0 +1,13 @@
+﻿@using Blazor.Cropper
+@using BlazorCore.Components.Modal
+
+<InputFile id="input1" OnChange="OnInputFileChange" />
+<BaseModal @ref="ModalRef">
+    <Body>
+        <Cropper @ref="Cropper" ImageFile="File" InputId="input1"
+            PureCSharpProcessing="true" />
+    </Body>
+    <Footer>
+        <button @onclick="GetCropResult">Save</button>
+    </Footer>
+</BaseModal>

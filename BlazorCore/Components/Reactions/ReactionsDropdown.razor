@@ -1,0 +1,22 @@
+﻿@using BlazorCore.Components.Dropdown
+@using BlazorCore.Data.Consts;
+
+<DropdownTrigger CloseOnSelect="true">
+    <Trigger>
+        <button type="button" class="btn" disabled="@Disabled">
+            <svg data-src="@IconsConst.Smile" fill="black" />
+        </button>
+    </Trigger>
+
+    <Content>
+        <div class="d-flex justify-content-around reactions">
+            @foreach (var c in typeof(CommentsConsts.Reactions).GetFields())
+            {
+                <button type="button" class="btn-circle @(SelectedReaction == c.Name ? CssConst.Active : string.Empty)"
+                    @onclick="async () => await SelectedReactionChanged.InvokeAsync(c.Name)">
+                    @c.GetValue(null)
+                </button>
+            }
+        </div>
+    </Content>
+</DropdownTrigger>

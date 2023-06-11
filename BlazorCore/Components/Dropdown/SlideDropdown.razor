@@ -1,0 +1,17 @@
+﻿<div class="slide-holder">
+    <div class="slide-dropdown @DropdownClass @(DropdownExpanded ? "expanded" : "collapsed")
+    @(Disabled ? "disabled" : string.Empty)"
+         @ref="DropdownRef">
+        <div class="selector-holder" @onclick="ToggleDropdown">
+            @Trigger
+            <svg data-src="@Arrow"
+                 class="arrow @(DropdownExpanded ? "expanded" : "collapsed")"/>
+        </div>
+
+        <div class="option-list-holder @(DropdownExpanded ? "expanded" : "collapsed")">
+            <div class="scroll-area" @ref="SlideContainerRef">
+                @Options
+            </div>
+        </div>
+    </div>
+</div>

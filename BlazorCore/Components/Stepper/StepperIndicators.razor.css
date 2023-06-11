@@ -1,0 +1,95 @@
+.steppers-holder {
+	display: flex;
+}
+
+.steppers-holder .stepper {
+	display: flex;
+	align-items: center;
+	height: 24px
+}
+
+.steppers-holder .stepper .text {
+	transition: all .3s ease;
+	color: #BCBCBC;
+	margin-left: 8px;
+	display: none
+}
+
+.steppers-holder .stepper .circle {
+	transition: all .3s ease;
+	border: 2px solid #BCBCBC;
+	border-radius: 50%;
+	background-color: #BCBCBC;
+	width: 24px;
+	height: 24px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: unset;
+	color: #fff
+}
+
+.steppers-holder .stepper .circle svg {
+	fill: #fff
+}
+
+.steppers-holder .stepper .circle:focus {
+	outline: none
+}
+
+.steppers-holder .stepper .line {
+	transition: all .3s ease;
+	width: 24px;
+	border-top: 2px solid #BCBCBC
+}
+
+.steppers-holder .stepper.active .circle, .steppers-holder .stepper.completed .circle {
+	border-color: #298DCC;
+	color: #fff
+}
+
+.steppers-holder .stepper.active .text, .steppers-holder .stepper.completed .text {
+	color: #298DCC
+}
+
+.steppers-holder .stepper.active .line, .steppers-holder .stepper.completed .line {
+	border-color: #298DCC !important
+}
+
+.steppers-holder .stepper.completed .circle {
+	background-color: #fff
+}
+
+.steppers-holder .stepper.completed .circle svg {
+	fill: #298DCC
+}
+
+.steppers-holder .stepper.active .circle {
+	background-color: #298DCC
+}
+
+.steppers-holder .stepper.active .circle svg {
+	fill: #fff
+}
+
+@media (min-width: 768px) {
+	.steppers-holder.vertical {
+		flex-direction: column
+	}
+
+	.steppers-holder.vertical .stepper:not(:first-child) {
+		margin-top: 48px
+	}
+
+	.steppers-holder.vertical .stepper .line {
+		width: 0;
+		border-top: none;
+		height: 48px;
+		transform: translate(12px, -36px);
+		border-left: 2px solid #BCBCBC
+	}
+
+	.steppers-holder.vertical .stepper .text {
+		display: block
+	}
+}

@@ -1,0 +1,25 @@
+:root {
+	--progress: 0%;
+	--base-color: #D0D6E1;
+	--completed-color: #14306B;
+}
+
+.progress {
+	background: var(--completed-color);
+	width: 100%;
+	position: relative;
+	overflow: hidden;
+	transition: linear 1s;
+	border-radius: 0;
+	margin: 5px 0;
+}
+
+.progress::after {
+	content: "";
+	width: 100%;
+	height: 100%;
+	background: var(--base-color);
+	position: absolute;
+	left: var(--progress);
+	transition: linear 1s
+}

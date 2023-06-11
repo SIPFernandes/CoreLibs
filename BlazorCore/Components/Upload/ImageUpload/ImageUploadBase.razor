@@ -1,0 +1,57 @@
+﻿@using BlazorCore.Data.Consts
+@using BlazorCore.Data.Consts.ENConsts
+@using BlazorCore.Components.Modal
+
+<div class="image-upload-holder">
+    <div class="image-upload">
+        @ImageHolder
+
+        <InputFile id="input1" OnChange="OnInputFileChange" accept=".jpg,.png,.jpeg" class="hidden-input-file" />
+    </div>
+
+    <div class="buttons-holder">
+        @if (!string.IsNullOrEmpty(Image))
+        {
+            <button class="secondary-button color-red" @onclick="RemoveImage"
+                disabled="@string.IsNullOrEmpty(Image)">
+
+                <svg data-src="@IconsConst.Generic.Trash" />
+
+                @FilesConst.UploadsConst.RemovePhoto
+            </button>
+        }
+
+        <button class="secondary-button" onclick="triggerElementById('input1')">
+            @(string.IsNullOrEmpty(Image) ? FilesConst.UploadsConst.UploadPhoto : FilesConst.UploadsConst.ChangePhoto)            
+        </button>
+    </div>
+
+    <div class="upload-instructions">
+        @UploadInstructions
+
+        <div class="@(ErrorFileSize ? CssConst.Error : string.Empty)">
+            @string.Format(FilesConst.UploadsConst.DropzoneTextImageMaxSize, MaxFileSizeKb, FileSizeUnit)
+        </div>
+
+        <div>
+            @FilesConst.UploadsConst.DropzoneTextImageSupportedFiles
+        </div>
+    </div>
+</div>
+
+@if(PreventDelete)
+{
+    <ModalConfirm @ref="ModalConfirm" ConfirmTitle="@GenericsConst.Delete" Class="error"
+              OnConfirmation="RemoveImageComplete">
+        <Body>
+            <div class="text-left">
+                <div class="title title--l weight--l">
+                    @GenericsConst.ConfirmModal.ImageUploadTitle
+                </div>
+                <div class="text">
+                    @GenericsConst.ConfirmModal.ImageUploadDescription
+                </div>
+            </div>
+        </Body>
+    </ModalConfirm>
+}

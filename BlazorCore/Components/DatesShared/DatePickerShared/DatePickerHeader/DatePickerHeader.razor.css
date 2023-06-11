@@ -1,0 +1,80 @@
+﻿.primary-input-holder {
+	padding: 8px;
+	width: 100%;
+}
+
+.primary-input-holder.invalid {
+	border-color: #F8555B;
+}
+
+.primary-input-holder.invalid .primary-input-label {
+	color: #F8555B;
+}
+
+.primary-input-holder.invalid .primary-input {
+	border-color: #F8555B;
+}
+
+.primary-input-holder.invalid .primary-input input {
+	color: #F8555B;
+}
+
+.primary-input-holder:focus-within {
+	border-color: #000000;
+}
+
+.primary-input-holder.invalid:focus-within {
+	border-color: #F8555B;
+}
+
+.primary-input-holder:focus-within .primary-input-label {
+	color: #000000;
+}
+
+.primary-input-holder.invalid:focus-within .primary-input-label {
+	color: #F8555B;
+}
+
+.primary-input-holder:focus-within .primary-input {
+	border-color: #000000;
+}
+
+.primary-input-holder.invalid:focus-within .primary-input {
+	border-color: #F8555B;
+}
+
+.primary-input-label {
+	color: #BBBBBB;
+	font-size: 14px;
+	text-align: start;
+}
+
+.primary-input {
+	width: 100%;
+	display: flex;
+	border: 1px solid #BBBBBB;
+	border-radius: 6px;
+	padding: 10px 12px;
+}
+
+.primary-input.invalid {
+	border-color: #F8555B;
+	color: #F8555B;
+}
+
+.partial-input {
+	width: 100%;
+	border: none;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+	-moz-appearance: textfield;
+}

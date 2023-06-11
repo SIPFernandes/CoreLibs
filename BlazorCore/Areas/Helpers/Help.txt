@@ -1,0 +1,1 @@
+﻿Later Create DotNetCore Project with this helpers has services and the File Entity, then PeerGroupCore should Depend on it, also  figure out a way to make BlazorCore to user this File Entity and the Excel Cell Model.

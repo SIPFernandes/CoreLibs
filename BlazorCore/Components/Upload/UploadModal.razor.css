@@ -1,0 +1,48 @@
+.upload-padding {
+	width: 100%
+}
+
+.upload-item {
+	padding: 12px 0;
+}
+
+.upload-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%
+}
+
+.upload-actions {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	border-top: 1px solid #EDF1F3
+}
+
+.uploads-count {
+	color: #707070;
+	font-size: 12px;
+	font-style: italic
+}
+
+.files-holder {
+	max-height: 60vh;
+	overflow: auto
+}
+
+.cursor-pointer{
+	cursor: pointer;
+}
+
+.arrow-diagonal-down{
+	transform: rotate(-135deg);
+}
+
+.arrow-diagonal-down{
+	transform: rotate(-45deg);
+}
+
+.arrow-diagonal-up{
+	transform: rotate(-135deg);
+}

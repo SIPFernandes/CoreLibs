@@ -1,0 +1,28 @@
+@using BlazorCore.Components.Dropdown
+@using BlazorCore.Data.Consts;
+@using DotNetCore.Helpers;
+
+<div class="comment-reply-container @(Dark ? "dark" : string.Empty)">
+    <div class="comment-reply-header">
+        <div class="text text--s weight--m">
+            @ReplyUserName
+        </div>
+
+        <div class="header-icons">
+            <div class="text text--xs px-2">
+                @DateHelper.DateAgo(Reply.CreatedAt)
+            </div>
+
+            @if (RemoveReply.HasDelegate)
+            {
+                <button class="btn" @onclick="RemoveReplyEvent">
+                    <svg data-src=@IconsConst.Generic.Close class="@CssConst.IconColor.Main icon-close" />
+                </button>
+            }
+        </div>
+    </div>
+
+    <div class="text text-ellipsis">
+        @((MarkupString)Reply.Comment)
+    </div>
+</div>

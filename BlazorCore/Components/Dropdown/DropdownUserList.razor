@@ -1,0 +1,31 @@
+﻿@using BlazorCore.Data.Consts.ENConsts
+@using BlazorCore.Components.Forms;
+@using BlazorCore.Data.Consts
+
+<div class="search-holder">
+    <CustomInputText Placeholder="@string.Format(GenericsConst.PlaceholderFormat, GenericsConst.People)"
+         @bind-Value="SearchExpression" class="app-form mb-0" Icon="@IconsConst.Generic.Search"
+         OnInput="OnSearchChange" />
+</div>
+
+ <div class="dropdown-options-wrapper">
+    @if (FilteredUserItemList != null && FilteredUserItemList.Any())
+    {
+        foreach (var item in FilteredUserItemList)
+        {            
+            <DropdownUserItem UserItem="item"
+                UserItemChanged="OnUserSelect"/>       
+        }
+    }
+    else if(!string.IsNullOrEmpty(SearchExpression))
+    {
+        <div class="d-flex text-center flex-column">
+            <span class="nothing-found">
+                @GenericsConst.NoResults
+            </span>
+            <span class="search-expression">
+                “@SearchExpression”
+            </span>
+        </div>
+    }
+</div>

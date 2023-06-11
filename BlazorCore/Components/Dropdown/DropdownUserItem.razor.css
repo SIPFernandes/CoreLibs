@@ -1,0 +1,38 @@
+﻿.user-info {
+    flex: 1;
+    padding-left: 8px;
+}
+
+p {
+    margin: 0;
+}
+
+.job-title {
+    color: #767676;
+    font-size: 12px;
+}
+
+.removed {
+    cursor: auto;
+}
+
+.dropdown-option-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 8px;
+}
+
+    .dropdown-option-item:hover {
+        background-color: #F7F7F7;
+    }
+
+.check-icon {
+    fill: #2D2D2D;
+    width: 10px;
+    height: 10px;
+}
+
+.icon-border {
+    border-color: #2D2D2D;
+}

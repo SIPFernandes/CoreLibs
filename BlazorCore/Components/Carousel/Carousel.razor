@@ -1,0 +1,27 @@
+@typeparam TItem
+
+<div class="carousel">
+    <div class="carousel-inner">
+        @for (var i = 0; i < Items.Count; i++)
+        {
+            <div class="carousel-item @(_activeIndex == i ? "active" : string.Empty)">
+                @ItemTemplate(Items[i])
+            </div>
+        }
+    </div>
+    
+    <div class="carousel-dots-container">
+        @for (var j = 0; j < Items.Count; j++)
+        {
+            var j1 = j;
+            <div class="carousel-dot @(_activeIndex == j ? "active" : string.Empty)" @onclick="() => SetActiveIndex(j1)"></div>
+        }
+    </div>
+
+    <button class="carousel-control prev" @onclick="Prev">
+        &lt;
+    </button>
+    <button class="carousel-control next" @onclick="Next">
+        &gt;
+    </button>
+</div>

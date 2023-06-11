@@ -1,0 +1,102 @@
+@using BlazorCore.Components.Avatar
+@using System.Text.RegularExpressions
+@using BlazorCore.Areas.Helpers
+@using BlazorCore.Data.Consts;
+@using BlazorCore.Data.Consts.ENConsts;
+@using DotNetCore.Entities.MessageAggregate.CommentAggregate;
+@using DotNetCore.Helpers
+
+<div class="text" id="message-@CommentId">
+    @for (var j = 0; j < MessageArray.Length; j++)
+    {
+        var word = MessageArray[j];
+
+        if (string.IsNullOrEmpty(word))
+        {
+            continue;
+        }
+
+        var match = Regex.Match(word, CommentsConsts.TagPattern);
+
+        if (!string.IsNullOrEmpty(match.Value) && Enum.TryParse<CommentsConsts.CommentTextTags>(match.Groups[CommentsConsts.TagSection].Value, out var type))
+        {
+            if (!ShowMore && CharCount + match.Value.Length > CHARLIMIT)
+            {
+                <br />
+
+                <button class="btn-more" @onclick="() => ShowMore = true">
+                    @GenericsConst.ShowMore
+                </button>
+
+                break;
+            }
+            else
+            {
+                CharCount += match.Value.Length;
+
+                switch (type)
+                {
+                    case CommentsConsts.CommentTextTags.UserId:
+
+                        <span class="user-mention">
+                            <UserLink UserId="@match.Groups[CommentsConsts.TagValue].Value" />
+                        </span>
+
+                        break;
+                    case CommentsConsts.CommentTextTags.FileReference:
+
+                        var file = match.Groups[CommentsConsts.TagValue].Value.Deserialize<CommentFileModel>();
+
+                        if (file != null)
+                        {                            
+                            <CommentFile File="file" />
+                        }                        
+
+                        break;
+                    default:
+                        @((MarkupString)match.Value)
+
+                        break;
+                }
+            }
+        }
+        else
+        {
+            if (!ShowMore && CharCount + word.Length > CHARLIMIT)
+            {
+                var count = CharCount + word.Length - CHARLIMIT;
+
+                <span>
+                    @((MarkupString)word.Substring(0, word.Length - count) + "...")
+                </span>
+
+                <br />
+
+                <button class="btn-more" @onclick="() => ShowMore = true">
+                    @GenericsConst.ShowMore
+                </button>
+
+                break;
+            }
+            else
+            {
+                CharCount += word.Length;
+
+                @((MarkupString)word)
+            }
+        }
+
+        if (j < MessageArray.Length - 1)
+        {
+            <span class="space">&nbsp;</span>
+        }
+        else if (ShowMore)
+        {
+            <br />
+
+            <button class="btn-more" @onclick="() => { ShowMore = false;  CharCount = 0; }">
+                @GenericsConst.ShowLess
+            </button>
+        }
+    }
+</div>

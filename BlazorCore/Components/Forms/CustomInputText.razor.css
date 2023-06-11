@@ -1,0 +1,7 @@
+.input-box-holder:has(textarea) {
+	align-items: start;
+}
+
+textarea {
+	height: 96px;
+}

@@ -1,0 +1,11 @@
+﻿@if(OpenedTooltip != null)
+{
+   <div class="tooltip-wrapper"  
+        style="left: @(OpenedTooltip.Left)px;">
+        <div class="tooltip-content" 
+            style="top: @(OpenedTooltip.Top)px; width: @(OpenedTooltip.TooltipWidth)px; @(OpenedTooltip.Top == -1 ? "opacity: 0;" : string.Empty))"
+            @onmouseenter="() => MouseIn = true" @onmouseleave="OnMouseLeave" @ref="ContentRef">
+            @OpenedTooltip.DropdownContent
+        </div>
+    </div> 
+}

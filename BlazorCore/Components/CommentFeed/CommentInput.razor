@@ -1,0 +1,109 @@
+@using BlazorCore.Components.Avatar
+@using BlazorCore.Components.Dropdown
+@using BlazorCore.Components.Reactions
+@using BlazorCore.Components.Upload
+@using BlazorCore.Data.Consts
+@using BlazorCore.Data.Consts.ENConsts;
+
+@inherits UserReferenceComponent;
+
+<div @ref="InputBoxRef" class="comment-input-holder @(Focused || IsReply ? CssConst.Active : string.Empty)
+     @(IsEdit ? CssConst.Active + " holder-edit" : string.Empty)"
+     @onmousedown="OnFocusIn">
+
+    <div class="low-opacity"></div>
+
+    <div class="comment-input-container">
+        @if (!IsEdit)
+        {
+            <UserAvatar UserId="@FeedData.FeedCurrentUser.UserId" />
+        }
+
+        <div class="comment-input-text">
+            @if (ReplyingTo != null)
+            {
+                <CommentReply Reply="ReplyingTo" RemoveReply="RemoveReply" />
+            }
+            
+            @if (_uploadedtFiles != null)
+            {
+                <FileUploadList Files="_uploadedtFiles" RefreshFile="RefreshFile"
+                    OnUploadDelete="RemoveFile" />             
+            }
+
+            <div class="comment-input-parent">
+                @if (ReplyToUser != null)
+                {
+                    @((MarkupString) ReplyToUser)
+
+                    <span>&nbsp;</span>
+                }  
+                
+                <span class="comment-input" placeholder="@FeedConsts.AddComment"
+                      contenteditable="true"
+                      @onkeypress="e => OnKeyboardInput(e)"
+                      @onkeyup="OnKeyUp"
+                      onkeydown="@(UserReferenceDropdown != null && UserReferenceDropdown.IsDropdownOpen() ? "preventNewLine(event)" : null)"
+                      @ref="CommentEditInput">
+                </span>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="comment-input-controls">
+        <ReactionsDropdown SelectedReactionChanged="OnReactionClick" />
+
+        <button class="btn-circle @(IsBoldActive ? CssConst.Active : string.Empty)"
+                @onclick="OnBoldClick">
+            @FeedConsts.Bold
+        </button>
+
+        <DropdownTrigger DropdownWidth="204" CloseOnSelect="true"
+                         @ref="UserReferenceDropdown" OnDropdownClose="CloseUserReference">
+            <Trigger>
+                <div class="button-icon">
+                    <svg data-src="@IconsConst.At" class="@CssConst.IconColor.Main" />
+                </div>
+            </Trigger>
+
+            <Content>
+                <FeedUsersList @ref="UsersListRef" UserSelected="OnUserSelect" />
+            </Content>
+        </DropdownTrigger>
+        
+        <FeedFileComponent @ref="FeedFileRef" CurrentUserId="@FeedData.FeedCurrentUser.UserId" 
+            UploadFileData="FeedData.UploadFileData" OnUploadFile="OnFileUpload" OnFileUploadCompleted="StateHasChanged" />
+
+        @if (!IsEdit)
+        {
+            <button class="primary-button @(IsSendingMessage ? CssConst.Loading : string.Empty)"
+                @onclick="SendMessage" disabled="@(!IsConnected)">
+                
+                <div>
+                    <svg data-src=@IconsConst.Generic.SendArrow class=@CssConst.IconColor.N100 />
+                </div>
+
+                <div class="@CssConst.LoadingBtnWhite"></div>
+            </button>
+        }
+    </div>
+</div>
+
+@if (IsEdit)
+{
+    <div class="comment-edit-buttons">
+        <button class="secondary-button" @onclick="async () => await OnCancel.InvokeAsync()">
+            @GenericsConst.Cancel
+        </button>
+
+        <button class="primary-button no-margin @(IsSendingMessage ? CssConst.Loading : string.Empty)"
+            @onclick="SendMessage" disabled="@(!IsConnected)">
+            <div>
+                @GenericsConst.Save
+            </div>
+            
+            <div class="@CssConst.LoadingBtnWhite"></div>
+        </button>
+    </div>
+}

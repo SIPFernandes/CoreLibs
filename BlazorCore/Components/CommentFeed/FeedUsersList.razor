@@ -1,0 +1,17 @@
+@using BlazorCore.Components.Avatar
+@using BlazorCore.Data.Consts;
+
+
+<div class="users-wrapper" @ref="UsersListRef">
+    @if (FilteredList != null)
+    {
+        foreach (var user in FilteredList)
+        {
+            <div class="@CommentsConsts.UserItemClass text-ellipsis" title="@user.FirstName"
+                 @onclick="async () => await UserSelected.InvokeAsync(user)">
+                <UserAvatar UserId="@user.Id" AvatarSize="24"/>
+                <span class="padding-left-8">@user.FirstName @user.LastName</span>
+            </div>               
+        }
+    }
+</div>

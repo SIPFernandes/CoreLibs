@@ -1,0 +1,85 @@
+.month-days-holder {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center
+}
+
+.month-day {
+	min-width: 36px;
+	min-height: 32px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 1px 0;
+	font-size: 12px;
+	line-height: 18px;
+	color: #0B1F2F;
+	cursor: pointer
+}
+
+.month-day.weekend {
+	background-color: #F7F9FA
+}
+
+.month-day.today-date {
+	color: #298DCC;
+	text-decoration: underline
+}
+
+.month-day.other-month {
+	color: #707070
+}
+
+.month-day.selected-only {
+	color: white;
+	background-color: #435989;
+	border-radius: 6px
+}
+
+.month-day.selected-first {
+	color: white;
+	background-color: #435989;
+	border-radius: 6px 0 0 6px
+}
+
+.month-day.selected-last {
+	color: white;
+	background-color: #435989;
+	border-radius: 0 6px 6px 0
+}
+
+.month-day.selected-first.selected-last {
+	color: white;
+	background-color: #298DCC;
+	border-radius: 6px
+}
+
+.month-day.disabled {
+	pointer-events: none;
+	color: #bbb
+}
+
+.month-day.selectedPeriod {
+	background-color: #7283A6;
+	color: white
+}
+
+.calendar-days-holder {
+	text-align: center
+}
+
+.week-days-holder {
+	display: flex
+}
+
+.week-day {
+	padding: 6px 18px 0 18px;
+	width: 24px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 12px;
+	line-height: 18px;
+	color: #333;
+	text-transform: capitalize
+}

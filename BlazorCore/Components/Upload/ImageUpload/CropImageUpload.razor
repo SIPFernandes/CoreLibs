@@ -1,0 +1,15 @@
+﻿@using Blazor.Cropper
+@using BlazorCore.Components.Modal
+@inherits ImageUploadBase
+
+@{
+    base.BuildRenderTree(__builder);
+}
+
+<ModalConfirm @ref="ModalRef" OnConfirmation="GetCropResult" ConfirmTitle="Save">
+    <Body>
+        <Cropper @ref="Cropper" ImageFile="File" InputId="input1"
+            PureCSharpProcessing="true" RequireAspectRatio=FixedRatio />
+    </Body>        
+</ModalConfirm>
+

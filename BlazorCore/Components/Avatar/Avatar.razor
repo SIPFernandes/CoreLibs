@@ -1,0 +1,17 @@
+﻿@using BlazorCore.Data.Consts.ENConsts
+@using BlazorCore.Data.Consts
+
+<div class="avatar" style="@_style">
+    @if (AvatarModel is null)
+    {
+        <svg data-src="@IconsConst.UserDisabled" />
+    }
+    else if (!string.IsNullOrEmpty(AvatarModel.Image))
+    {
+        <img style="@_style" src="@AvatarModel.Image" alt="@AvatarModel.Placeholder">
+    }
+    else
+    {
+        @AvatarModel.Placeholder
+    }
+</div>

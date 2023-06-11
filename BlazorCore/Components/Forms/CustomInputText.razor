@@ -1,0 +1,69 @@
+@using BlazorCore.Data.Consts
+@inherits InputBase<string>
+
+<div class="input-box @CssClass">
+    @if (!string.IsNullOrEmpty(LabelText))
+    {
+        <label class="input-label">
+            @LabelText
+            @if (IsRequired)
+            {
+                <span class="required-indicator">*</span>
+            }
+        </label>
+    }
+    <div class="input-box-holder">
+        @if (Type == InputType.TextArea)
+        {
+            <textarea type="@Type"
+               class="input-text"
+               required="@IsRequired"
+               placeholder="@Placeholder"
+               @oninput="HandleInput"
+               @bind="@CurrentValueAsString" @ref="SearchInputRef"></textarea>
+        }
+        else
+        {
+            <input type="@Type"
+               class="input-text"
+               id="@Id"
+               required="@IsRequired"
+               placeholder="@Placeholder"
+               @oninput="HandleInput"
+               @bind-value="@CurrentValueAsString" @ref="SearchInputRef"/>
+        }
+
+        @if (ShowClearIcon)
+        {
+            <div class="icon close-icon" @onclick="@Clear">
+                <svg data-src="@IconsConst.Generic.CloseCircle"/>
+            </div>
+        }
+
+        @if (Type == InputType.Password)
+        {
+            <div class="icon show-hide-icon" onclick="showHidePassword(@Id)">
+                <svg data-src="@IconsConst.Eye"/>
+                <div class="line"></div>
+            </div>
+        }
+
+        @if (!string.IsNullOrEmpty(Icon))
+        {
+            <div class="icon">
+                <svg data-src="@Icon"/>
+            </div>
+        }
+
+        @if (!string.IsNullOrEmpty(Placeholder))
+        {
+            <label class="input-placeholder">
+                @Placeholder
+                @if (IsRequired)
+                {
+                    <span class="required-indicator">*</span>
+                }
+            </label>
+        }
+    </div>
+</div>

@@ -1,0 +1,8 @@
+﻿<div class="dropdown-wrapper" 
+    style="left: @(DropdownInstanceModel.Left)px;">
+    <div @ref="DropdownRef" class="dropdown-content fade-in-half-s" 
+        style="top: @(DropdownInstanceModel.Top)px; width: @(DropdownInstanceModel.DropdownWidth)px;"
+        @onclick="@(DropdownInstanceModel.CloseOnSelect ? CloseDropdown : null)">
+        @DropdownInstanceModel.DropdownContent
+    </div>
+</div>

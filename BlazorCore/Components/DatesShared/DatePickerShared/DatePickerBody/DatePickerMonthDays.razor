@@ -1,0 +1,61 @@
+﻿@using DotNetCore.Consts
+@using BlazorCore.Data.Consts.ENConsts
+
+<div class="calendar-days-holder" @onclick:stopPropagation="true">
+    <div class="week-days-holder">
+        @foreach (var day in GenericsConst.Dates.WeekDays)
+        {
+            <div class="week-day">
+                @day
+            </div>
+        }
+    </div>
+    <div class="month-days-holder">
+        @{
+            for (var i = 0; i < _days; i++)
+            {
+                var date = _tmpDate = _tmpDate.AddDays(1);
+
+                var lenght = Math.Floor(Math.Log10(_tmpDate.Day) + 1);
+
+                var weekend = _tmpDate.DayOfWeek == DayOfWeek.Saturday || _tmpDate.DayOfWeek == DayOfWeek.Sunday;
+
+                var onlySelected = (Model.StartDate.HasValue && date.Date == Model.StartDate.Value.Date && !Model.EndDate.HasValue);
+
+                var firstDateSelected = (Model.StartDate.HasValue && date.Date == Model.StartDate.Value.Date && Model.EndDate.HasValue);
+
+                var lastDateSelected = (Model.EndDate.HasValue && date.Date == Model.EndDate.Value.Date);                
+
+                var isSelectedPeriod = (Model.StartDate.HasValue && date.Date > Model.StartDate.Value.Date)
+                && (Model.EndDate.HasValue && date.Date < Model.EndDate.Value.Date);
+                
+                var isTodayDate = date.Date.Date == DateTime.Today.Date;
+                
+                var isOtherMonth = date.Date.Month != _date.Month;
+
+                var isDisabled = (MinDate.HasValue && date.Date.Date < MinDate.Value) 
+                    || (MaxDate.HasValue && date.Date.Date > MaxDate.Value);
+
+                <div class="month-day @(weekend ? "weekend" : string.Empty)
+                    @(onlySelected ? "selected-only" : string.Empty) 
+                    @(firstDateSelected ? "selected-first" : string.Empty)
+                    @(lastDateSelected ? "selected-last" : string.Empty)                                        
+                    @(isSelectedPeriod ? "selectedPeriod" : string.Empty)
+                    @(isOtherMonth ? "other-month" : string.Empty)
+                    @(isTodayDate ? "today-date" : string.Empty)
+                    @(isDisabled ? "disabled" : string.Empty)"
+                    @onclick="async () => await OnClick(date)">
+                    @(lenght > 1 ? _tmpDate.Day : $"0{_tmpDate.Day}")
+                </div>
+
+                if (_tmpDate.DayOfWeek == DayOfWeek.Saturday)
+                {
+                    <br />
+                }
+            }
+
+            _tmpDate = _calendarFirstDay;
+        }
+    </div>
+   
+</div>

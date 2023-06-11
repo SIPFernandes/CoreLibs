@@ -1,0 +1,11 @@
+<div class="avatar-group">
+    @foreach (var id in UsersId)
+    {
+        <UserAvatar UserId="@id" AvatarSize="Size"/>
+    }
+
+    @if (MoreItems != null)
+    {
+        <Avatar AvatarModel="AvatarMoreItems" AvatarSize="Size"/>
+    }
+</div>

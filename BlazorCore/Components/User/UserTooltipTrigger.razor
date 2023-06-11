@@ -1,0 +1,11 @@
+﻿@using BlazorCore.Components.Tooltip;
+@using BlazorCore.Components.Avatar;
+
+<LongHoverTooltip TooltipWidth="TooltipWidth">
+    <Trigger>
+        <UserAvatar UserId="@UserId" AvatarSize="AvatarSize"/>
+    </Trigger>
+    <TooltipContent>
+        @UserPopup
+    </TooltipContent>
+</LongHoverTooltip>

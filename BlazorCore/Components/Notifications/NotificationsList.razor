@@ -1,0 +1,32 @@
+﻿@if (_notifications != null && _notifications.Count > 0)
+{
+    foreach (var item in _notifications)
+    {
+        if (!ViewedSet && LastViewed != null && item.CreatedAt <= LastViewed)
+        {
+            ViewedSet = true;
+
+            <span>Viewed</span>
+        }
+        else if (!NewSet)
+        {
+            NewSet = true;
+
+            <span>New</span>
+        }
+
+        if (Template is null)
+        {
+            <NotificationItem Notification="item" />
+        }
+        else
+        {
+            @Template(item)
+        }
+    }    
+}
+else
+{
+    //TODO Empty State
+}
+

@@ -1,0 +1,16 @@
+.avatar-group {
+	display: flex;
+	justify-content: start
+}
+
+.avatar-group ::deep .avatar {
+	margin-left: -14px
+}
+
+.avatar-group ::deep .avatar:first-child {
+	margin-left: 0
+}
+
+.avatar-group.add-users ::deep .avatar:last-child {
+	margin-left: 0
+}

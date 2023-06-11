@@ -1,0 +1,20 @@
+﻿@using BlazorCore.Components.DatesShared.DatePickerShared.DatePickerHeader
+@using BlazorCore.Components.DatesShared.DatePickerShared.DatePickerBody
+@using BlazorCore.Data.Consts.ENConsts
+
+@if (!Model!.OnlyPickOneDate)
+{
+    <DatePickerHeader Model="_model" OnStartDateChange="OnStartDateChanged" OnEndDateChange="OnEndDateChanged"/> 
+}
+
+<DatePickerBody @bind-Model="_model" MinDate="MinDate" MaxDate="MaxDate"/>
+
+<div class="actions">
+    <button class="secondary-button">
+        @GenericsConst.Cancel
+    </button>
+
+    <button class="ml-2 primary-button" @onclick="ConfirmDates">
+        @Model.ConfirmText
+    </button>
+</div>

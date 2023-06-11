@@ -1,0 +1,18 @@
+﻿@using BlazorCore.Data.Consts;
+
+<div class="container-state">
+    <div class="icon-state">
+        <svg data-src=@IconSvg class="@CssConst.IconColor.Main--n600" />
+    </div>
+
+    <div class="text-state">
+        <div class="text--l weight--l color-n600">
+            @Title
+        </div>
+        <div class="text--xs color-n500">
+            @Description
+        </div>
+    </div>
+
+    @MoreInfo
+</div>

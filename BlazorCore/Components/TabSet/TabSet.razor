@@ -1,0 +1,25 @@
+﻿@using BlazorCore.Data.Consts;
+
+<div class="container-header">
+    @foreach (var tab in TabsList)
+    {
+        <button class="tab-item @(SelectedTab.Name == tab.Name ? "active" : string.Empty)"
+            @onclick='async () => await ChangeTab(tab)'>
+            @if (!string.IsNullOrEmpty(tab.Icon))
+            {
+                <svg data-src=@tab.Icon class="@CssConst.IconColor.Main submenu-icon" />
+            }
+
+            <span>
+                @tab.Name
+            </span>
+
+            @if (DisplayValue && tab.Value > 0)
+            {
+                <span class="value">
+                    @tab.Value
+                </span>
+            }
+        </button>
+    }
+</div>

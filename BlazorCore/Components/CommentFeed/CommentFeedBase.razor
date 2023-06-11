@@ -1,0 +1,11 @@
+﻿@using DotNetCore.Entities.MessageAggregate.CommentAggregate;
+@typeparam T where T : Comment
+
+<CommentsList T="T" Comments="Comments" FeedData="FeedData" GetMoreEvent="GetMore"
+              OnReply="OnReply" OnDelete="OnDelete" OnReacting="async (x) => await SendReationNotif(x)"/>
+
+@if (!FeedData.FeedOpts.DisableComments)
+{
+    <CommentInput IsEdit="false" IsConnected="true" FeedData="FeedData"
+        OnSend="AddComment" @bind-ReplyingTo="ReplyingTo" />
+}

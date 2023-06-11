@@ -1,0 +1,25 @@
+﻿@using BlazorCore.Components.EmptyState
+@using BlazorCore.Components.JSInterop
+@using BlazorCore.Data.Consts.ENConsts;
+@using BlazorCore.Data.Consts;
+@using DotNetCore.Entities.MessageAggregate.CommentAggregate;
+@typeparam T where T : Comment
+
+<OnScrollTopComponent OnScrollTopEvent="GetMore">
+    <Content>
+        @if (Comments != null && Comments.Any())
+        {
+            @foreach (var item in Comments)
+            {
+                <CommentItem T=T CommentObj="item" OnReply="OnReply" @key="item.Id"
+                     OnDelete="OnDelete" FeedData="FeedData" OnReacting="OnReacting"/>
+            }
+        }
+        else
+        {
+            <EmptyState Title="@FeedConsts.EmptyStates.CommentTitle" Description="@FeedConsts.EmptyStates.CommentDescription"
+                    IconSvg="@IconsConst.ChatSmile">
+            </EmptyState>
+        }
+    </Content>
+</OnScrollTopComponent>

@@ -1,0 +1,18 @@
+﻿@if (PreviousBtn != null && _currentStep > 0)
+{
+    <button class="secondary-button btn btn--xl" 
+        @onclick="async () => await CurrentStepChanged.InvokeAsync(PreviousStep)"
+        disabled="@(!CanGoToStepArray[PreviousStep] || Waiting)">
+        @PreviousBtn
+    </button>
+}
+
+<button class="primary-button btn btn--xl"
+    @onclick="async () => await CurrentStepChanged.InvokeAsync(NextStep)"
+    disabled="@(NextStep < CanGoToStepArray.Length && !CanGoToStepArray[NextStep] || Waiting)">
+    @NextBtn
+    @if (Waiting)
+    {
+        <span class="spinner-border spinner-border-sm ml-1" role="status" aria-hidden="true"></span>
+    }
+</button>

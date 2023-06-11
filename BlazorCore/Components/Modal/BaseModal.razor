@@ -1,0 +1,23 @@
+﻿<div class="modal @Class @ModalClass" id="@Id" tabindex="-1" data-backdrop="static" role="dialog" 
+    style="display:@Display @(IsMinimized ? "background-color: transparent; width: unset; left: unset; top: unset; bottom: 0; right: 0; height: 240px; width: 400px;" : "")">
+    <div class="modal-dialog modal-@Size.ToString() modal-dialog-centered" style="@Style" role="document">
+        <div class="modal-content @(Footer == null ? "no-footer" : "")">
+            @if (Header != null)
+            {
+                <div class="modal-header">
+                    @Header
+                </div>
+            }
+            <div class="modal-body">
+                @Body
+            </div>
+            @if (Footer != null)
+            {
+                <div class="modal-footer">
+                    @Footer
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

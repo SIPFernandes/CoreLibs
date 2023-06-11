@@ -1,0 +1,41 @@
+.image-upload-holder{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+}
+
+.image-upload {
+	position: relative;
+	margin-bottom: 24px;
+}
+
+.upload-instructions {
+	margin-top: 24px;
+	max-width: 280px
+}
+
+.color-red {
+	color: #B24747;
+	border-color: #B24747;
+}
+
+.color-red svg {
+	fill: #B24747;
+}
+
+.buttons-holder{
+	display: flex;
+	gap: 20px;
+}
+
+::deep .hidden-input-file {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	left: 0;
+	top: 0;
+	cursor: pointer;
+	opacity: 0;
+	font-size: 0;
+}

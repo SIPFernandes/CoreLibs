@@ -1,0 +1,13 @@
+<ModalConfirm @ref="_modalConfirm" OnConfirmation="async () => await OnConfirmationChange(true)" OnCancel="() => OnConfirmationChange(false)"
+              ConfirmTitle="@ConfirmText" class="confirm-modal-dialog">
+    <Header>
+        <div class="title--s weight color-n700">
+            @ConfirmationTitle
+        </div>
+    </Header>
+    <Body>
+        <div class="text-left">
+            @((MarkupString) ConfirmationMessage!)
+        </div>
+    </Body>
+</ModalConfirm>

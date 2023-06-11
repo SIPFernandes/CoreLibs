@@ -1,0 +1,108 @@
+$stepper-width: 24px;
+$stepper-line: 48px;
+
+$main-color: #298DCC;
+$disabled-color: #BCBCBC;
+$secondary-color: #FFFFFF;
+
+
+.steppers-holder {
+  display: flex;
+
+  .stepper {
+    display: flex;
+    align-items: center;
+    height: $stepper-width;
+
+    .text {
+      transition: all .3s ease;
+      color: $disabled-color;
+      margin-left: 8px;
+      display: none;
+    }
+
+    .circle {
+      transition: all .3s ease;
+      border: 2px solid $disabled-color;
+      border-radius: 50%;
+      background-color: $disabled-color;
+      width: $stepper-width;
+      height: $stepper-width;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: unset;
+      color: $secondary-color;
+
+      svg {
+        fill: $secondary-color;
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    .line {
+      transition: all .3s ease;
+      width: $stepper-width;
+      border-top: 2px solid $disabled-color;
+    }
+  }
+}
+
+.steppers-holder .stepper.active, .steppers-holder .stepper.completed {
+  .circle {
+    border-color: $main-color;
+    color: $secondary-color;
+  }
+
+  .text {
+    color: $main-color;
+  }
+
+  .line {
+    border-color: $main-color!important;
+  }
+}
+
+.steppers-holder .stepper.completed .circle {
+  background-color: $secondary-color;
+
+  svg {
+    fill: $main-color;
+  }
+}
+
+.steppers-holder .stepper.active .circle {
+  background-color: $main-color;
+
+  svg {
+    fill: $secondary-color;
+  }
+}
+
+@media (min-width: 768px) {
+  .steppers-holder.vertical {
+    flex-direction: column;
+
+    .stepper {
+
+      &:not(:first-child) {
+        margin-top: $stepper-line;
+      }
+
+      .line {
+        width: 0;
+        border-top: none;
+        height: $stepper-line;
+        transform: translate(($stepper-width/2), (-$stepper-width/2 -$stepper-line/2));
+        border-left: 2px solid $disabled-color;
+      }
+      
+      .text{
+        display: block;
+      }
+    }
+  }
+}

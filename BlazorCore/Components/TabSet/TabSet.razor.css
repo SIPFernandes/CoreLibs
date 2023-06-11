@@ -1,0 +1,5 @@
+﻿.container-header {
+    display: flex;
+    flex-direction: row;
+    min-height: 41px;
+}

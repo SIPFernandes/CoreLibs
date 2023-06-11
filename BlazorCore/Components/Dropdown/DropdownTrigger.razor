@@ -1,0 +1,6 @@
+﻿<div @ref="TriggerReference" @onclick="() => OpenDropdown()"
+     @onclick:stopPropagation="true" style="@TriggerStyle"
+    class="dropdown-trigger @(DropdownOpened ? "active" : string.Empty) 
+           @(Disabled ? "disabled" : string.Empty)">
+    @Trigger
+</div>
